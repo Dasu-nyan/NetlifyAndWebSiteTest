@@ -5,15 +5,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>子画面</title>
+        <script>
+            function updateInfo() {
+                document.getElementById("opener-status").textContent = window.opener;
+                document.getElementById("closed-status").textContent = window.closed;
+            }
+
+            window.onload = function () {
+                updateInfo();
+                setInterval(updateInfo, 1000); // 1秒ごとに更新
+            };
+        </script>
     </head>
 
     <body>
         <h1>子画面</h1>
+        <p>window.opener: <span id="opener-status"></span></p>
+        <p>window.closed: <span id="closed-status"></span></p>
+
         <button onclick="window.close()">window.close()</button>
         <button
             onclick="window.open('about:blank', '_self').close()">window.open('about:blank','_self').close()</button>
         <button onclick="window.open('', '_self').close()">window.open('','_self').close()</button>
-        <button onclick="window.opener='dummy'; window.close()">window.opener=dummy; window.close()</button>
+        <button onclick="window.opener='dummy'; window.close()">window.opener='dummy'; window.close()</button>
     </body>
 
 </html>
