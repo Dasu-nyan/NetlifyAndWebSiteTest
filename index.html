@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ポップアップウィンドウテスト</title>
+    </head>
+
+    <body>
+        <h1>親画面</h1>
+        <button id="openChildBtn">子画面を作る</button>
+        <button id="closeChildBtn" disabled>子画面を閉じる</button>
+
+        <script>
+            let childWindow;
+
+            // 子画面を開くボタンのイベント
+            document.getElementById('openChildBtn').addEventListener('click', function () {
+                childWindow = window.open('', 'childWindow', 'width=400,height=300');
+                childWindow.document.write(`
+                <h1>子画面</h1>
+                <button onclick="window.close()">window.close()</button>
+                <button onclick="window.open('about:blank', '_self').close()">window.open('about:blank','_self').close()</button>
+                <button onclick="window.opener=null; window.close()">window.opener=null; window.close()</button>
+            `);
+
+                // 親画面で「子画面を閉じる」ボタンを有効にする
+                document.getElementById('closeChildBtn').disabled = false;
+            });
+
+            // 親画面から子画面を閉じるボタンのイベント
+            document.getElementById('closeChildBtn').addEventListener('click', function () {
+                if (childWindow && !childWindow.closed) {
+                    childWindow.close();
+                }
+            });
+        </script>
+    </body>
+
+</html>
