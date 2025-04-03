@@ -4,38 +4,36 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ポップアップウィンドウテスト</title>
+        <title>親画面</title>
+        <script>
+            let childWindow = null;
+
+            function openChild() {
+                childWindow = window.open("child.html", "childWindow");
+                if (childWindow) {
+                    document.getElementById("status").textContent = "✅ 子画面を開きました";
+                    setTimeout(closeChild, 20000); // 20秒後に閉じる
+                } else {
+                    document.getElementById("status").textContent = "❌ 子画面を開けませんでした";
+                }
+            }
+
+            function closeChild() {
+                if (childWindow && !childWindow.closed) {
+                    childWindow.close();
+                    document.getElementById("status").textContent = "✅ 子画面を閉じました";
+                } else {
+                    document.getElementById("status").textContent = "❌ 既に閉じられているか、開くのに失敗しました";
+                }
+            }
+        </script>
     </head>
 
     <body>
         <h1>親画面</h1>
-        <a href="./child.html" target="_blank" rel="opener">
-            <button>子画面を作る</button>
-        </a>
-        <button id="closeChildBtn" disabled>子画面を閉じる</button>
-
-        <script>
-            let childWindow = null;
-
-            // 子画面が開かれた際に取得する関数
-            function checkChildWindow() {
-                childWindow = window.open('', 'childWindow');
-                if (childWindow && !childWindow.closed) {
-                    document.getElementById('closeChildBtn').disabled = false;
-                }
-            }
-
-            // 親画面から子画面を閉じる
-            document.getElementById('closeChildBtn').addEventListener('click', function () {
-                if (childWindow && !childWindow.closed) {
-                    childWindow.close();
-                    document.getElementById('closeChildBtn').disabled = true;
-                }
-            });
-
-            // 定期的に子画面の状態をチェック
-            setInterval(checkChildWindow, 1000);
-        </script>
+        <button onclick="openChild()">子画面を開く</button>
+        <button onclick="closeChild()">子画面を閉じる</button>
+        <p id="status">子画面の状態: 未オープン</p>
     </body>
 
 </html>
