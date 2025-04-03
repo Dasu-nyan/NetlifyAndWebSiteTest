@@ -14,7 +14,9 @@
                     document.getElementById("status").textContent = "✅ 子画面を開きました";
                     setTimeout(closeChild, 20000); // 20秒後に閉じる
                 } else {
+                    // childWindowがnullやundefinedの時、画面上に詳細情報を表示
                     document.getElementById("status").textContent = "❌ 子画面を開けませんでした";
+                    document.getElementById("error-details").textContent = "childWindow: " + childWindow;
                 }
             }
 
@@ -34,6 +36,7 @@
         <button onclick="openChild()">子画面を開く</button>
         <button onclick="closeChild()">子画面を閉じる</button>
         <p id="status">子画面の状態: 未オープン</p>
+        <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
     </body>
 
 </html>
