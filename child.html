@@ -5,15 +5,45 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>子画面</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+            }
+
+            .log {
+                margin: 5px 0;
+                padding: 10px;
+                border: 1px solid #ccc;
+                background-color: #f9f9f9;
+            }
+
+        </style>
         <script>
             function updateInfo() {
                 document.getElementById("opener-status").textContent = window.opener;
                 document.getElementById("closed-status").textContent = window.closed;
             }
 
+            function logMessage(message) {
+                const logDiv = document.createElement("div");
+                logDiv.className = "log";
+                logDiv.textContent = message;
+                document.getElementById("debug").appendChild(logDiv);
+            }
+
+            function tryWindowClose(method) {
+                try {
+                    method();
+                    logMessage("✅ " + method.name + " 実行成功！");
+                } catch (e) {
+                    logMessage("❌ " + method.name + " 失敗: " + e);
+                }
+            }
+
             window.onload = function () {
                 updateInfo();
-                setInterval(updateInfo, 1000); // 1秒ごとに更新
+                setInterval(updateInfo, 1000);
             };
         </script>
     </head>
@@ -23,11 +53,23 @@
         <p>window.opener: <span id="opener-status"></span></p>
         <p>window.closed: <span id="closed-status"></span></p>
 
-        <button onclick="window.close()">window.close()</button>
-        <button
-            onclick="window.open('about:blank', '_self').close()">window.open('about:blank','_self').close()</button>
-        <button onclick="window.open('', '_self').close()">window.open('','_self').close()</button>
-        <button onclick="window.opener='dummy'; window.close()">window.opener='dummy'; window.close()</button>
+        <h2>ウィンドウを閉じるボタン</h2>
+        <button onclick="tryWindowClose(() => window.close())">window.close()</button>
+        <button onclick="tryWindowClose(() => window.open('about:blank', '_self').close())">
+            window.open('about:blank', '_self').close()
+        </button>
+        <button onclick="tryWindowClose(() => window.open('', '_self').close())">
+            window.open('', '_self').close()
+        </button>
+        <button onclick="tryWindowClose(() => { window.opener = 'dummy'; window.close(); })">
+            window.opener='dummy'; window.close()
+        </button>
+        <button onclick="tryWindowClose(() => { window.location.href = 'about:blank'; })">
+            window.location.href = 'about:blank'
+        </button>
+
+        <h2>デバッグ情報</h2>
+        <div id="debug"></div>
     </body>
 
 </html>
