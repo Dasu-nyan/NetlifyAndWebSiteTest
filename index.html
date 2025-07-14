@@ -38,7 +38,7 @@
 
             edgeInputElement.addEventListener('input', () => {
                 EDGE_THRESHOLD = parseInt(edgeInputElement.value, 10);
-                displaySpan.textContent = EDGE_THRESHOLD;
+                edgeDisplayElement.textContent = EDGE_THRESHOLD;
             })
             document.addEventListener('touchstart', function (e) {
                 const x = e.touches[0].pageX;
@@ -57,7 +57,7 @@
         <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
         <br />
         <label for="edgeRange">ジェスチャーを封じる閾値(px):</label>
-        <input type="range" id="edgeRange" min="1" max="100" value="16">
+        <input type="range" id="edgeRange" min="1" max="40" step="1" value="16">
         <span id="currentTheshold">16</span>
     </body>
 
