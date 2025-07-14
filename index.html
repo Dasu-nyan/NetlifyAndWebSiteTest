@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>親画面</title>
         <script>
+            // 子画面関連部分
             let childWindow = null;
 
             function openChild() {
@@ -29,9 +30,19 @@
                 }
             }
 
+            // ジェスチャー封じ部分
+            let EDGE_THRESHOLD = 16;
+
+            const edgeInputElement = document.getElementById('edgeRange');
+            const edgeDisplayElement = document.getElementById('currentTheshold');
+
+            edgeInputElement.addEventListener('input', () => {
+                EDGE_THRESHOLD = parseInt(edgeInputElement.value, 10);
+                displaySpan.textContent = EDGE_THRESHOLD;
+            })
             document.addEventListener('touchstart', function (e) {
                 const x = e.touches[0].pageX;
-                if (x < 16 || x > window.innerWidth - 16) {
+                if (x < EDGE_THRESHOLD || x > window.innerWidth - EDGE_THRESHOLD) {
                     e.preventDefault();
                 }
             }, { passive: false })
@@ -44,6 +55,10 @@
         <button onclick="closeChild()">子画面を閉じる</button>
         <p id="status">子画面の状態: 未オープン</p>
         <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
+        <br />
+        <label for="edgeRange">ジェスチャーを封じる閾値(px):</label>
+        <input type="range" id="edgeRange" min="1" max="100" value="16">
+        <span id="currentTheshold">16</span>
     </body>
 
 </html>
