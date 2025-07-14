@@ -28,6 +28,13 @@
                     document.getElementById("status").textContent = "❌ 既に閉じられているか、開くのに失敗しました";
                 }
             }
+
+            document.addEventListener('touchstart', function (e) {
+                const x = e.touches[0].pageX;
+                if (x < 16 || x > window.innerWidth - 16) {
+                    e.preventDefault();
+                }
+            }, { passive: false })
         </script>
     </head>
 
