@@ -29,23 +29,6 @@
                     document.getElementById("status").textContent = "❌ 既に閉じられているか、開くのに失敗しました";
                 }
             }
-
-            // ジェスチャー封じ部分
-            let EDGE_THRESHOLD = 16;
-
-            const edgeInputElement = document.getElementById('edgeRange');
-            const edgeDisplayElement = document.getElementById('currentTheshold');
-
-            edgeInputElement.addEventListener('input', () => {
-                EDGE_THRESHOLD = parseInt(edgeInputElement.value, 10);
-                edgeDisplayElement.textContent = EDGE_THRESHOLD;
-            })
-            document.addEventListener('touchstart', function (e) {
-                const x = e.touches[0].pageX;
-                if (x < EDGE_THRESHOLD || x > window.innerWidth - EDGE_THRESHOLD) {
-                    e.preventDefault();
-                }
-            }, { passive: false })
         </script>
     </head>
 
@@ -60,5 +43,24 @@
         <input type="range" id="edgeRange" min="1" max="40" step="1" value="16">
         <span id="currentTheshold">16</span>
     </body>
+    <script>
+        // ジェスチャー封じ部分
+        let EDGE_THRESHOLD = 16;
+
+        const edgeInputElement = document.getElementById('edgeRange');
+        const edgeDisplayElement = document.getElementById('currentTheshold');
+
+        edgeInputElement.addEventListener('input', () => {
+            EDGE_THRESHOLD = parseInt(edgeInputElement.value, 10);
+            edgeDisplayElement.textContent = EDGE_THRESHOLD;
+        });
+
+        document.addEventListener('touchstart', function (e) {
+            const x = e.touches[0].pageX;
+            if (x < EDGE_THRESHOLD || x > window.innerWidth - EDGE_THRESHOLD) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
 
 </html>
