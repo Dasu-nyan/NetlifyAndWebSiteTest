@@ -19,6 +19,28 @@
                 overflow: auto;
             }
 
+            #left-edge,
+            #right-edge {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 16px;
+                /* 初期値 */
+                background: rgba(255, 0, 0, 0.3);
+                pointer-events: none;
+                /* 操作に影響を与えない */
+                z-index: 9999;
+                height: 5px;
+            }
+
+            #left-edge {
+                left: 0;
+            }
+
+            #right-edge {
+                right: 0;
+            }
+
         </style>
         <script>
             // 子画面関連部分
@@ -55,6 +77,8 @@
             <p id="status">子画面の状態: 未オープン</p>
             <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
             <br />
+            <div id="left-edge"></div>
+            <div id="right-edge"></div>
             <label for="edgeRange">ジェスチャーを封じる閾値(px):</label>
             <input type="range" id="edgeRange" min="10" max="90" step="1" value="16">
             <span id="currentTheshold">16</span>
@@ -66,10 +90,14 @@
 
         const edgeInputElement = document.getElementById('edgeRange');
         const edgeDisplayElement = document.getElementById('currentTheshold');
+        const rightEdgeAreaDisplayElement = document.getElementById('right-edge');
+        const leftEdgeAreaDisplayElement = document.getElementById('left-edge');
 
         edgeInputElement.addEventListener('input', () => {
             EDGE_THRESHOLD = parseInt(edgeInputElement.value, 10);
             edgeDisplayElement.textContent = EDGE_THRESHOLD;
+            leftEdgeAreaDisplayElement.style.width = EDGE_THRESHOLD + 'px';
+            rightEdgeAreaDisplayElement.style.width = EDGE_THRESHOLD + 'px';
         });
 
         document.addEventListener('touchstart', function (e) {
