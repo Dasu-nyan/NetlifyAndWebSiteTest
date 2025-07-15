@@ -5,6 +5,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>親画面</title>
+        <style>
+            #edgeRange {
+                width: 80vh;
+            }
+
+        </style>
         <script>
             // 子画面関連部分
             let childWindow = null;
@@ -40,7 +46,7 @@
         <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
         <br />
         <label for="edgeRange">ジェスチャーを封じる閾値(px):</label>
-        <input type="range" id="edgeRange" min="1" max="40" step="1" value="16">
+        <input type="range" id="edgeRange" min="10" max="90" step="1" value="16">
         <span id="currentTheshold">16</span>
     </body>
     <script>
