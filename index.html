@@ -10,6 +10,15 @@
                 width: 80vw;
             }
 
+            html,
+            body {
+                overflow: hidden;
+            }
+
+            #inner-div {
+                overflow: auto;
+            }
+
         </style>
         <script>
             // 子画面関連部分
@@ -39,15 +48,17 @@
     </head>
 
     <body>
-        <h1>親画面</h1>
-        <button onclick="openChild()">子画面を開く</button>
-        <button onclick="closeChild()">子画面を閉じる</button>
-        <p id="status">子画面の状態: 未オープン</p>
-        <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
-        <br />
-        <label for="edgeRange">ジェスチャーを封じる閾値(px):</label>
-        <input type="range" id="edgeRange" min="10" max="90" step="1" value="16">
-        <span id="currentTheshold">16</span>
+        <div id="inner-div">
+            <h1>親画面</h1>
+            <button onclick="openChild()">子画面を開く</button>
+            <button onclick="closeChild()">子画面を閉じる</button>
+            <p id="status">子画面の状態: 未オープン</p>
+            <p id="error-details" style="color: red;"></p> <!-- エラーメッセージ表示用 -->
+            <br />
+            <label for="edgeRange">ジェスチャーを封じる閾値(px):</label>
+            <input type="range" id="edgeRange" min="10" max="90" step="1" value="16">
+            <span id="currentTheshold">16</span>
+        </div>
     </body>
     <script>
         // ジェスチャー封じ部分
