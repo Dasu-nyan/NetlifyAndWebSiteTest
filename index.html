@@ -78,6 +78,13 @@
                 e.preventDefault();
             }
         }, { passive: false });
+
+        document.addEventListener('touchmove', function (e) {
+            const x = e.touches[0].pageX;
+            if (x < EDGE_THRESHOLD || x > window.innerWidth - EDGE_THRESHOLD) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
 
 </html>
