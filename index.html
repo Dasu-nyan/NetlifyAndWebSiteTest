@@ -117,10 +117,13 @@
     <script>
         history.pushState(null, null, null);
         // ブラウザバック封じ部分
-        window.addEventListener('popstate', function (event) {
-            // 現在のURLを再度プッシュ
+        // window.addEventListener('popstate', function (event) {
+        //     // 現在のURLを再度プッシュ
+        //     history.pushState(null, null, null);
+        // });
+        window.onpopstate = function (event) {
             history.pushState(null, null, null);
-        });
+        }
     </script>
 
 </html>
