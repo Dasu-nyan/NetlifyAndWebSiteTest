@@ -114,5 +114,12 @@
             }
         }, { passive: false });
     </script>
+    <script>
+        // ブラウザバック封じ部分
+        window.addEventListener('popstate', function (event) {
+            // 現在のURLを再度プッシュ
+            history.pushState(null, null, window.location.href);
+        });
+    </script>
 
 </html>
